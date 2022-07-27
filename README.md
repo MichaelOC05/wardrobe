@@ -2,7 +2,8 @@
 
 Team:
 
-    Tim Lotz - Shoes 
+    Tim Lotz - Shoes
+    This is an edit on a new line
 * Person 1 - Which microservice?
 * Person 2 - Which microservice?
 
