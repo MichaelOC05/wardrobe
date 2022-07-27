@@ -1,12 +1,7 @@
 # Wardrobify
-change
 Team:
-
-    Tim Lotz - Shoes
-    This is an edit on a new line
+    Tim Lotz: Shoes
     Michael: Hats
-* Person 1 - Which microservice?
-* Person 2 - Which microservice?
 
 ## Design
 
