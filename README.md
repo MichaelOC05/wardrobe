@@ -1,7 +1,7 @@
 # Wardrobify
 
 Team:
-
+Michael: Hats
     Tim Lotz - Shoes
 * Person 1 - Which microservice?
 * Person 2 - Which microservice?
