@@ -2,7 +2,6 @@
 
 Team:
 
-    Tim Lotz - Shoes
 * Person 1 - Which microservice?
 * Person 2 - Which microservice?
 Michael: Hats
