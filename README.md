@@ -4,9 +4,11 @@ Team:
 
     Tim Lotz - Shoes
     This is an edit on a new line
+Michael: Hats
+    Tim Lotz - Shoes
 * Person 1 - Which microservice?
 * Person 2 - Which microservice?
-
+Michael: Hats
 ## Design
 
 ## Shoes microservice
