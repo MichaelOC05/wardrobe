@@ -9,7 +9,7 @@ class LocationVO(models.Model):
     shelf_number = models.PositiveSmallIntegerField()
 
     def __str__(self):
-        return `Closet: ${self.closet_name}  Section: ${self.section_number} Shelf: ${self.shelf_number}`
+        return 'Closet: ' + self.closet_name + 'Section: ' + str(self.section_number) + 'Shelf: '  + str(self.shelf_number)
 
 
 class Hat(models.Model):
@@ -21,7 +21,7 @@ class Hat(models.Model):
         LocationVO,
         related_name="hats",
         on_delete=models.CASCADE,
-        null=True
+        null=True,
     )
 
     def __str___(self):
