@@ -28,7 +28,7 @@ def api_list_binVOs(request):
         return JsonResponse(
             {"BinVOs": binVOs},
             encoder=BinVOEncoder,
-            safe=False
+            # safe=False
         )
 
 @require_http_methods(["GET", "POST"])
