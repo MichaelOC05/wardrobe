@@ -12,7 +12,7 @@ class BinVO(models.Model):
     bin_size = models.PositiveSmallIntegerField()
 
     def __str__(self) -> str:
-        return self.closet_name + int(self.bin_number)
+        return self.closet_name + str(self.bin_number)
 
 class Shoes(models.Model):
     manufacturer = models.CharField(max_length=200)
