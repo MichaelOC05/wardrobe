@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-z*)9#!l8!xm2*p%x85l5-+6c_0f7haq08q93b1h*yp+ut^x-6m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "wardrobe-api", "wardrobe", "shoes-api", "shoes"]
 
 
 # Application definition
@@ -52,12 +52,17 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
+    "http://localhost:8100",
+    "http://localhost:8080",
 ]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "http://localhost:8100",
+    "http://localhost:8080",
 ]
 CORS_ALLOW_CREDENTIALS = True
 

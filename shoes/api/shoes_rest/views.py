@@ -4,9 +4,13 @@ from django.http import JsonResponse
 import json
 
 from common.json import ModelEncoder
-from shoes_rest.models import Shoes
+from shoes_rest.models import Shoes, BinVO
 
 # Create your views here.
+class BinVOEncoder(ModelEncoder):
+    model = BinVO
+    properties = ["closet_name", "bin_number", "import_href"]
+
 class ShoesListEncoder(ModelEncoder):
     model = Shoes
     properties = ["model_name", "color"]
@@ -14,7 +18,18 @@ class ShoesListEncoder(ModelEncoder):
 
 class ShoesDetailEncoder(ModelEncoder):
     model = Shoes
-    properties = ["model_name", "color", "picture_url", "manufacturer",]
+    properties = ["model_name", "color", "picture_url", "manufacturer", "bin"]
+    encoders = {"bin": BinVOEncoder()}
+
+
+def api_list_binVOs(request):
+    if request.method == "GET":
+        binVOs = BinVO.objects.all()
+        return JsonResponse(
+            {"BinVOs": binVOs},
+            encoder=BinVOEncoder,
+            safe=False
+        )
 
 @require_http_methods(["GET", "POST"])
 def api_list_shoes(request):
@@ -26,6 +41,15 @@ def api_list_shoes(request):
         )
     else:
         content = json.loads(request.body)
+
+        try:
+            bin = BinVO.objects.get(import_href=content["bin"])
+            content["bin"] = bin
+        except BinVO.DoesNotExist:
+            return JsonResponse(
+               {"message": "Invalid bin href"},
+               status=400, 
+            )
 
         shoe = Shoes.objects.create(**content)
         return JsonResponse(
