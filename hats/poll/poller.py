@@ -35,7 +35,7 @@ def poll():
             get_location()
         except Exception as e:
             print(e, file=sys.stderr)
-        time.sleep(5)
+        time.sleep(60)
 
 
 if __name__ == "__main__":
