@@ -15,8 +15,9 @@ class HatsListEncoder(ModelEncoder):
     model = Hat
     properties = [
         "style_name",
-        "location"      
+        "color"      
     ]
+ 
 
 
 class HatDetailEncoder(ModelEncoder):
@@ -46,6 +47,7 @@ def api_list_hats(request):
         return JsonResponse(
             hats,
             encoder=HatsListEncoder,
+            safe=False
         )
     else:
         content = json.loads(request.body)
