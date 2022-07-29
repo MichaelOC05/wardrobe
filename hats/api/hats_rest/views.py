@@ -15,9 +15,12 @@ class HatsListEncoder(ModelEncoder):
     model = Hat
     properties = [
         "style_name",
-        "color"      
+        "color",
+        "picture_url",
+        "fabric",
+        "location"
     ]
- 
+    encoders = {"location": LocationVOListEncoder()}
 
 
 class HatDetailEncoder(ModelEncoder):
@@ -45,9 +48,8 @@ def api_list_hats(request):
     if request.method == "GET":
         hats = Hat.objects.all()
         return JsonResponse(
-            hats,
+            {"hats":hats},
             encoder=HatsListEncoder,
-            safe=False
         )
     else:
         content = json.loads(request.body)
