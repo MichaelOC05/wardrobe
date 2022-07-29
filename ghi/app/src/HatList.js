@@ -91,7 +91,7 @@ class HatList extends React.Component {
       <>
         <div className="px-4 py-5 my-5 mt-0 text-center bg-info">
           <img className="bg-white rounded shadow d-block mx-auto mb-4" src="/logo.svg" alt="" width="600" />
-          <h1 className="display-5 fw-bold">Shoe List</h1>
+          <h1 className="display-5 fw-bold">Hat List</h1>
 
         </div>
         <div className="container">
