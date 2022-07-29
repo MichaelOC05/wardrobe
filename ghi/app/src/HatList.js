@@ -5,15 +5,15 @@ function ConferenceColumn(props) {
   return (
     <div className="col">
       {props.list.map(data => {
-        const conference = data;
+        const hat = data;
 
         return (
-          <div key={conference.href} className="card mb-3 shadow">
-             <img src={conference.location.picture_url} className="card-img-top" />
+          <div key={hat.href} className="card mb-3 shadow">
+            <img src={hat.picture_url} className="card-img-top" />
             <div className="card-body">
-              <h5 className="card-title">{conference.style_name}</h5>
+              <h5 className="card-title">{hat.style_name}</h5>
               <h6 className="card-subtitle mb-2 text-muted">
-                {conference.location.closet_name}
+                Closet: {hat.location.closet_name} Section Number: {hat.location.section_number}
               </h6>
 
             </div>
