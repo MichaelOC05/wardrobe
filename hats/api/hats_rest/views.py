@@ -30,7 +30,8 @@ class HatDetailEncoder(ModelEncoder):
         "color",
         "picture_url",
         "fabric",
-        "location"
+        "location",
+        "id"
     ]
     encoders = {"location": LocationVOListEncoder()}
 

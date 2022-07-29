@@ -6,7 +6,7 @@ function HatColumn(props) {
     <div className="col">
       {props.list.map(data => {
         const hat = data;
-
+        const handleDelete = props.handleDelete
         return (
           <div key={hat.href} className="card mb-3 shadow">
             <img src={hat.picture_url} className="card-img-top" />
@@ -15,8 +15,8 @@ function HatColumn(props) {
               <h6 className="card-subtitle mb-2 text-muted">
                 Closet: {hat.location.closet_name} Section Number: {hat.location.section_number}
               </h6>
-              
-
+              <p> build {hat.href}</p>
+              <button className="btn btn-primary" onClick={ () => handleDelete(hat.href)}>Delete</button>
             </div>
 
           </div>
@@ -30,10 +30,58 @@ class HatList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      hatColumns: [[], [], []],
+      hatColumns: [[], [], []]
     };
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
+
+  async handleDelete(hatId) {
+      const url = `http://localhost:8090${hatId}`
+      const fetchConfig = {
+        method: "DELETE"
+      }
+      const response = await fetch(url, fetchConfig)
+      console.log("this is deleted", response)
+      const updatedUrl = "http://localhost:8090/api/hats/"
+      try {
+        const updatedResponse = await fetch(updatedUrl)
+        if (response.ok) {
+          const data = await updatedResponse.json()
+          const updatedRequests = []
+          console.log(data)
+          for (let hat of data.hats) {
+            const detailsUrl = `http://localhost:8090${hat.href}`
+            updatedRequests.push(fetch(detailsUrl))
+          }
+          const updatedHatResponses = await Promise.all(updatedRequests)
+          const updatedHatColumns = [[], [], []];
+          let i = 0
+          for (const updatedHatResponse of updatedHatResponses) {
+            if (updatedHatResponse.ok) {
+              const updatedHatDetails = await updatedHatResponse.json()
+              updatedHatColumns[i].push(updatedHatDetails);
+              i = i + 1;
+              if (i > 2) {
+                i = 0;
+              }
+            } else {
+              console.error(updatedHatResponse);
+            }
+          
+
+          // Set the state to the new list of three lists of
+          // conferences
+          this.setState({hatColumns: updatedHatColumns});
+        
+      }
+
+        }
+
+    }catch (e) {
+      console.error(e);
+    }
+  }
   async componentDidMount() {
     const url = 'http://localhost:8090/api/hats/';
 
@@ -42,27 +90,14 @@ class HatList extends React.Component {
       if (response.ok) {
         // Get the list of conferences
         const data = await response.json();
-
-        // Create a list of for all the requests and
-        // add all of the requests to it
         const requests = [];
 
         for (let hat of data.hats) {
           const detailUrl = `http://localhost:8090${hat.href}`;
           requests.push(fetch(detailUrl));
         }
-
-        // Wait for all of the requests to finish
-        // simultaneously
         const responses = await Promise.all(requests);
-
-        // Set up the "columns" to put the conference
-        // information into
         const hatColumns = [[], [], []];
-
-        // Loop over the conference detail responses and add
-        // each to to the proper "column" if the response is
-        // ok
         let i = 0;
         for (const conferenceResponse of responses) {
           if (conferenceResponse.ok) {
@@ -99,7 +134,7 @@ class HatList extends React.Component {
           <div className="row">
             {this.state.hatColumns.map((hatList, index) => {
               return (
-                <HatColumn key={index} list={hatList} />
+                <HatColumn key={index} list={hatList} handleDelete={this.handleDelete}/>
               );
             })}
           </div>
