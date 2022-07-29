@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function ConferenceColumn(props) {
+function HatColumn(props) {
   return (
     <div className="col">
       {props.list.map(data => {
@@ -29,7 +29,7 @@ class MainPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      conferenceColumns: [[], [], []],
+      hatColumns: [[], [], []],
     };
   }
 
@@ -57,7 +57,7 @@ class MainPage extends React.Component {
 
         // Set up the "columns" to put the conference
         // information into
-        const conferenceColumns = [[], [], []];
+        const hatColumns = [[], [], []];
 
         // Loop over the conference detail responses and add
         // each to to the proper "column" if the response is
@@ -66,7 +66,7 @@ class MainPage extends React.Component {
         for (const conferenceResponse of responses) {
           if (conferenceResponse.ok) {
             const details = await conferenceResponse.json();
-            conferenceColumns[i].push(details);
+            hatColumns[i].push(details);
             i = i + 1;
             if (i > 2) {
               i = 0;
@@ -78,7 +78,7 @@ class MainPage extends React.Component {
 
         // Set the state to the new list of three lists of
         // conferences
-        this.setState({conferenceColumns: conferenceColumns});
+        this.setState({hatColumns: hatColumns});
       }
     } catch (e) {
       console.error(e);
@@ -104,9 +104,9 @@ class MainPage extends React.Component {
         <div className="container">
           <h2>Upcoming conferences</h2>
           <div className="row">
-            {this.state.conferenceColumns.map((conferenceList, index) => {
+            {this.state.hatColumns.map((hatList, index) => {
               return (
-                <ConferenceColumn key={index} list={conferenceList} />
+                <HatColumn key={index} list={hatList} />
               );
             })}
           </div>
