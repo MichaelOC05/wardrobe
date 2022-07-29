@@ -1,17 +1,25 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, HashRouter } from 'react-router-dom';
 import MainPage from './MainPage';
 import Nav from './Nav';
+import ShoeList from './ShoeList';
 
-function App() {
+function App(props) {
+  let {shoesList, hello} = props
+  // console.log(hello)
+  // if (shoesList === undefined) {
+  //   return null
+  // }
+  // console.log("about to render")
   return (
-    <BrowserRouter>
+    <div>
       <Nav />
+      <ShoeList shoes={shoesList} />
       <div className="container">
-        <Routes>
+        {/* <Routes>
           <Route path="/" element={<MainPage />} />
-        </Routes>
+        </Routes> */}
       </div>
-    </BrowserRouter>
+    </div>
   );
 }
 

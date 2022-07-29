@@ -40,7 +40,7 @@ class ConferenceForm extends React.Component {
     const data = {...this.state};
     delete data.locations;
 
-    const locationUrl = 'http://localhost:8000/api/conferences/';
+    const locationUrl = 'http://localhost:8080/api/shoes/'
     const fetchConfig = {
       method: "post",
       body: JSON.stringify(data),

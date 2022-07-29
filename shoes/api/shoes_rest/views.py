@@ -9,14 +9,9 @@ from shoes_rest.models import Shoes, BinVO
 # Create your views here.
 class BinVOEncoder(ModelEncoder):
     model = BinVO
-    properties = ["closet_name", "bin_number", "import_href"]
+    properties = ["closet_name", "bin_number", "import_href", "bin_size"]
 
-class ShoesListEncoder(ModelEncoder):
-    model = Shoes
-    properties = ["model_name", "color"]
-
-
-class ShoesDetailEncoder(ModelEncoder):
+class ShoesEncoder(ModelEncoder):
     model = Shoes
     properties = ["model_name", "color", "picture_url", "manufacturer", "bin"]
     encoders = {"bin": BinVOEncoder()}
@@ -37,7 +32,7 @@ def api_list_shoes(request):
         shoes = Shoes.objects.all()
         return JsonResponse(
                 {"shoes": shoes},
-                encoder=ShoesListEncoder,
+                encoder=ShoesEncoder,
         )
     else:
         content = json.loads(request.body)
@@ -54,17 +49,19 @@ def api_list_shoes(request):
         shoe = Shoes.objects.create(**content)
         return JsonResponse(
             shoe,
-            encoder=ShoesDetailEncoder,
-            safe=False
+            encoder=ShoesEncoder,
+            safe=False,
         )
 
 @require_http_methods(["GET", "PUT", "DELETE"])
 def api_show_shoe(request, pk):
     if request.method == "GET":
-        shoe = Shoes.objects.filter(id=pk)
+        shoe = Shoes.objects.get(id=pk)
+        print(shoe.bin)
+        print(type(shoe.bin))
         return JsonResponse(
             shoe,
-            encoder=ShoesDetailEncoder,
+            encoder=ShoesEncoder,
             safe=False,
         )
     elif request.method == "DELETE":
@@ -78,6 +75,6 @@ def api_show_shoe(request, pk):
         shoe = Shoes.objects.get(id=pk)
         return JsonResponse(
             shoe,
-            encoder=ShoesDetailEncoder,
+            encoder=ShoesEncoder,
             safe=False,
         )
