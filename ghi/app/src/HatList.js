@@ -15,6 +15,7 @@ function HatColumn(props) {
               <h6 className="card-subtitle mb-2 text-muted">
                 Closet: {hat.location.closet_name} Section Number: {hat.location.section_number}
               </h6>
+              
 
             </div>
 
@@ -25,7 +26,7 @@ function HatColumn(props) {
   );
 }
 
-class MainPage extends React.Component {
+class HatList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -90,16 +91,8 @@ class MainPage extends React.Component {
       <>
         <div className="px-4 py-5 my-5 mt-0 text-center bg-info">
           <img className="bg-white rounded shadow d-block mx-auto mb-4" src="/logo.svg" alt="" width="600" />
-          <h1 className="display-5 fw-bold">Conference GO!</h1>
-          <div className="col-lg-6 mx-auto">
-            <p className="lead mb-4">
-              The only resource you'll ever need to plan an run your in-person or
-              virtual conference for thousands of attendees and presenters.
-            </p>
-            <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
-              <Link to="/attendees/new" className="btn btn-primary btn-lg px-4 gap-3">Attend a conference</Link>
-            </div>
-          </div>
+          <h1 className="display-5 fw-bold">Shoe List</h1>
+
         </div>
         <div className="container">
           <h2>Upcoming conferences</h2>
@@ -116,4 +109,4 @@ class MainPage extends React.Component {
   }
 }
 
-export default MainPage;
+export default HatList;
