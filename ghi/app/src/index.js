@@ -15,7 +15,7 @@ async function loadShoes() {
     const data = await response.json()
     root.render(
       <React.StrictMode>
-        <App shoesList={data.shoes} hello={"hello"} />
+        <App shoesList={data.shoes} />
       </React.StrictMode>
     )
   } else {

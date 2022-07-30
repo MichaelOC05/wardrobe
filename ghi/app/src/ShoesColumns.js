@@ -1,46 +1,58 @@
 import React from 'react';
 
-// function populateColumns({shoes}) {
-//     console.log("shoes", shoes)
-//     const shoeColumns = [[], [], []]
-//     let i = 0
-//     for (let shoe in shoes) {
-//         shoeColumns[i].push(shoe)
-//         i += 1
-//         if (i > 2) {
-//             i = 0
-//         }
-//     }
-//     this.setState({shoeColumns: shoeColumns})
-//     console.log("shoeColumns :", this.state.shoeColumns)
-// }
-
-function ShoesColumn({shoes}) {
-    // populateColumns()
+  
+function ShoesColumns({shoes}) {
+  // console.log("shoes: ", shoes)
+  const shoeColumns = [[], [], []]
+  let index = 0
+  for (let j = 0; j < shoes.length; j++) {
+    // console.log("shoe: ", shoes[j])
+    shoeColumns[index].push(shoes[j])
+    index += 1
+    if (index > 2) {
+        index = 0
+    }
+  }
+  console.log("shoeColumns: ", shoeColumns)
   return (
-    <div className="col">
-      {shoes.map(data => {
-        console.log(data)
-        // return (
-        //   <div key={shoe.href} className="card mb-3 shadow">
-        //     <img src={shoe.picture_url} className="card-img-top" />
-        //     <div className="card-body">
-        //       <h5 className="card-title">{shoe.model_name}</h5>
-        //       <h6 className="card-subtitle mb-2 text-muted">
-        //         {shoe.manufacturer_name}
-        //       </h6>
-        //       <p className="card-text">
-        //         {conference.description}
-        //       </p>
-        //     </div>
-        //     <div className="card-footer">
-        //         {/* put delete button here */}
-        //     </div>
-        //   </div>
-        // );
-      })}
-    </div>
-  );
+    shoeColumns.map(column => {
+      // console.log("column: ", column)
+      return(
+        ShoeColumn(column)
+      )
+    }
+    )
+  )
 }
 
-export default ShoesColumn;
+function ShoeColumn(column) {
+  return (
+    <div className="col">
+      {column.map(shoe => {
+        // console.log("shoe: ", shoe)
+        return (
+          <div key={shoe.href} className="card mb-3 shadow">
+            <img src={shoe.picture_url} className="card-img-top" />
+            <div className="card-body">
+              {/* add link to detail page */}
+              <h3 className="card-title">{shoe.model_name}</h3>
+              <div className="card-text">
+                <div>
+                  Brand: {shoe.manufacturer}
+                </div>
+                <div>
+                  Color: {shoe.color}
+                </div>
+              </div>
+            </div>
+            <div className="card-footer">
+                {/* put delete button here */}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  )
+}
+
+export default ShoesColumns;

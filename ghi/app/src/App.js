@@ -4,12 +4,7 @@ import Nav from './Nav';
 import ShoeList from './ShoeList';
 
 function App(props) {
-  let {shoesList, hello} = props
-  // console.log(hello)
-  // if (shoesList === undefined) {
-  //   return null
-  // }
-  // console.log("about to render")
+  let {shoesList} = props
   return (
     <div>
       <Nav />
