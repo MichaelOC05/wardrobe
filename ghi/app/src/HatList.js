@@ -48,9 +48,18 @@ class HatList extends React.Component {
         method: "DELETE"
       }
       const response = await fetch(url, fetchConfig)
-      console.log("this is deleted", response)]
-      const updatedHatColumns = this.state.arrayOfHats.filter(hat => hat.href ==! url)
-
+      console.log("this is deleted", response)
+      const updatedHats = this.state.arrayOfHats.filter(hat => hat.href !== url)
+      this.setState({arrayOfHats: updatedHats})
+      const updatedHatColumns = [[], [], []]
+      let ind = 0
+      for (let updatedHat of updatedHats) {
+        updatedHatColumns[ind].push(updatedHat)
+        ind = ind + 1
+        if (ind >2) {
+          ind = 0
+        }
+      }
       // the above way is much simplier way of updating the page then the below
 
 
@@ -83,16 +92,17 @@ class HatList extends React.Component {
 
           // Set the state to the new list of three lists of
           // conferences
-          this.setState({hatColumns: updatedHatColumns});
-        
+      this.setState({hatColumns: updatedHatColumns});
+      window.location.reload()
+ 
       }
 
-        }
+   
 
-    }catch (e) {
-      console.error(e);
-    }
-  }
+    // }catch (e) {
+    //   console.error(e);
+    
+  
   async componentDidMount() {
     const url = 'http://localhost:8090/api/hats/';
 
@@ -121,14 +131,14 @@ class HatList extends React.Component {
               i = 0;
             }
           } else {
-            console.error(conferenceResponse);
+            console.error(hatResponse);
           }
         }
 
         // Set the state to the new list of three lists of
         // conferences
         this.setState({hatColumns: hatColumns});
-        this.setState({"arrayOfHats": arrayOfHats})
+        this.setState({arrayOfHats: arrayOfHats})
       }
     } catch (e) {
       console.error(e);

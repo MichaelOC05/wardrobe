@@ -11,7 +11,7 @@ function App(props) {
       <Nav />
         <Routes>   
           <Route path="/hats" element={<HatList /> } />
-          {/* <Route path="/hatDetail" element={<DisplayHatDetails /> }/> */}
+          <Route path="/hatDetail" element={<DisplayHatDetails /> }/> 
           <Route path="/newhatform" element={<NewHatForm /> } /> 
         </Routes>
 
