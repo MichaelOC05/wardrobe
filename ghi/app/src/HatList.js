@@ -48,32 +48,37 @@ class HatList extends React.Component {
         method: "DELETE"
       }
       const response = await fetch(url, fetchConfig)
-      console.log("this is deleted", response)
-      const updatedUrl = "http://localhost:8090/api/hats/"
-      try {
-        const updatedResponse = await fetch(updatedUrl)
-        if (response.ok) {
-          const data = await updatedResponse.json()
-          const updatedRequests = []
-          console.log(data)
-          for (let hat of data.hats) {
-            const detailsUrl = `http://localhost:8090${hat.href}`
-            updatedRequests.push(fetch(detailsUrl))
-          }
-          const updatedHatResponses = await Promise.all(updatedRequests)
-          const updatedHatColumns = [[], [], []];
-          let i = 0
-          for (const updatedHatResponse of updatedHatResponses) {
-            if (updatedHatResponse.ok) {
-              const updatedHatDetails = await updatedHatResponse.json()
-              updatedHatColumns[i].push(updatedHatDetails);
-              i = i + 1;
-              if (i > 2) {
-                i = 0;
-              }
-            } else {
-              console.error(updatedHatResponse);
-            }
+      console.log("this is deleted", response)]
+      const updatedHatColumns = this.state.arrayOfHats.filter(hat => hat.href ==! url)
+
+      // the above way is much simplier way of updating the page then the below
+
+
+      // const updatedUrl = "http://localhost:8090/api/hats/"
+      // try {
+      //   const updatedResponse = await fetch(updatedUrl)
+      //   if (response.ok) {
+      //     const data = await updatedResponse.json()
+      //     const updatedRequests = []
+      //     console.log(data)
+      //     for (let hat of data.hats) {
+      //       const detailsUrl = `http://localhost:8090${hat.href}`
+      //       updatedRequests.push(fetch(detailsUrl))
+      //     }
+      //     const updatedHatResponses = await Promise.all(updatedRequests)
+      //     const updatedHatColumns = [[], [], []];
+      //     let i = 0
+      //     for (const updatedHatResponse of updatedHatResponses) {
+      //       if (updatedHatResponse.ok) {
+      //         const updatedHatDetails = await updatedHatResponse.json()
+      //         updatedHatColumns[i].push(updatedHatDetails);
+      //         i = i + 1;
+      //         if (i > 2) {
+      //           i = 0;
+      //         }
+      //       } else {
+      //         console.error(updatedHatResponse);
+      //       }
           
 
           // Set the state to the new list of three lists of
@@ -104,11 +109,13 @@ class HatList extends React.Component {
         }
         const responses = await Promise.all(requests);
         const hatColumns = [[], [], []];
+        const arrayOfHats = []
         let i = 0;
-        for (const conferenceResponse of responses) {
-          if (conferenceResponse.ok) {
-            const details = await conferenceResponse.json();
+        for (const hatResponse of responses) {
+          if (hatResponse.ok) {
+            const details = await hatResponse.json();
             hatColumns[i].push(details);
+            arrayOfHats.push(details)
             i = i + 1;
             if (i > 2) {
               i = 0;
@@ -121,6 +128,7 @@ class HatList extends React.Component {
         // Set the state to the new list of three lists of
         // conferences
         this.setState({hatColumns: hatColumns});
+        this.setState({"arrayOfHats": arrayOfHats})
       }
     } catch (e) {
       console.error(e);
