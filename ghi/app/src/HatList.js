@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 function HatColumn(props) {
   return (
@@ -11,7 +11,13 @@ function HatColumn(props) {
           <div key={hat.href} className="card mb-3 shadow">
             <img src={hat.picture_url} className="card-img-top" />
             <div className="card-body">
-              <h5 className="card-title">{hat.style_name}</h5>
+            <React.StrictMode>
+              <Link className="nav-link" to="/hatDetail" params={{
+                props: {hat}
+              }}>
+                <h5 className="card-title">{hat.style_name}</h5>
+              </Link>
+            </React.StrictMode>
               <h6 className="card-subtitle mb-2 text-muted">
                 Closet: {hat.location.closet_name} Section Number: {hat.location.section_number}
               </h6>
@@ -130,7 +136,7 @@ class HatList extends React.Component {
 
         </div>
         <div className="container">
-          <h2>Upcoming conferences</h2>
+          <h2>Hats</h2>
           <div className="row">
             {this.state.hatColumns.map((hatList, index) => {
               return (
